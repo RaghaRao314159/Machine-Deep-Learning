@@ -19,8 +19,11 @@ model.add(Dense(128,activation='relu'))
 model.add(Dense(1,activation='sigmoid'))
 model.compile(optimizer='adam',loss='binary_crossentropy', metrics=['accuracy'])
 
-training = ImageDataGenerator(rescale = 1./255,shear_range = 0.2,zoom_range = 0.2, horizontal_flip = True).flow_from_directory("/Volumes/Ragha's Hard Drive/programming/training",target_size = (64, 64), batch_size = 32, class_mode = 'binary')
-testing = ImageDataGenerator(rescale = 1./255).flow_from_directory("/Volumes/Ragha's Hard Drive/programming/testing",target_size = (64, 64),batch_size = 32,class_mode = 'binary')
+directory_for_training_data = "/Volumes/Ragha's Hard Drive/programming/training"
+directory_for_testing_data ="/Volumes/Ragha's Hard Drive/programming/testing"
+
+training = ImageDataGenerator(rescale = 1./255,shear_range = 0.2,zoom_range = 0.2, horizontal_flip = True).flow_from_directory(directory_for_training_data,target_size = (64, 64), batch_size = 32, class_mode = 'binary')
+testing = ImageDataGenerator(rescale = 1./255).flow_from_directory(directory_for_testing_data,target_size = (64, 64),batch_size = 32,class_mode = 'binary')
 
 model.fit_generator(training,steps_per_epoch = 1000,epochs = 2,validation_data = testing,validation_steps = 250)
 
